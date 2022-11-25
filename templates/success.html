@@ -9,7 +9,7 @@
         
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet" type='text/css'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <title>Results Page</title>
+        <title>결과</title>
 
         <style type="text/css">
             th{
@@ -27,13 +27,13 @@
         <div class = "second-main" style = "height: 100% , width: 100%;">
             <nav>
                 <ul style = "padding-right: 2%;" class = "main-nav">
-                    <li><a href ="/">HOME   </a></li>                
+                    <li><a href ="/">HOME</a></li>                
                 </ul>
                
             </nav>
             <div class = "header">
                 <row style = "width: 100% ; display: flex; justify-content: center;">
-                    <h3 class="header-text">업로드 사진 확인</h3>
+                    <h3 class="header-text"><b>결과 확인</b><br></h3>
                 </row>
                 <row style = "width: 100% ; display: flex; justify-content: center;">
                     <img class = "result-img" src={{url_for('static', filename = 'images/'+ img)}}>
@@ -43,14 +43,14 @@
             <div class = "info">
             
                 <row style = "width: 100% ; display: flex; justify-content: center;">
-                    <h3 class = "header-text">상품 예측</h3>
+                    <h3 class = "header-text"><b>상품 예측</b></h3>
                 </row>
                 <row style = "width: 100%; display: flex; justify-content: center;">
                     <table class="table-bordered text-light table-custom">
                         <tr>
-                            <th>Rank</th>
-                            <th>Class</th>
-                            <th>Probability</th>
+                            <th>순위</th>
+                            <th>과자명</th>
+                            <th>예측률</th>
                         </tr>
                         <tr>
                             <td>1st</td>

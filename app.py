@@ -2,11 +2,15 @@ import os
 import uuid
 import flask
 import urllib
+
 from PIL import Image
 from tensorflow.keras.models import load_model
 from flask import Flask, render_template, request, send_file
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
+
 import os
+from gtts import gTTS
+import playsound
 
 
 app = Flask(__name__)
@@ -19,7 +23,8 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXT
 
-classes = ['banana', 'chip', 'heim', 'onion', 'oreo', 'pepero', 'pie', 'pizza', 'shrimp', 'turtle']
+
+classes = ['바나나킥', '포카칩', '화이트하임', '양파링', '오레오', '아몬드 빼빼로', '후렌치파이', '벌집핏자', '새우깡', '꼬북칩']
 
 
 def predict(filename, model):
@@ -53,6 +58,7 @@ def predict(filename, model):
 def home():
     return render_template("home.html")
 
+
 @app.route('/success', methods = ['GET', 'POST'])
 def success():
     error = ''
@@ -81,6 +87,16 @@ def success():
                         "prob3": prob_result[2],
                 }
 
+                # TTS
+                snack_name = 'snack_name.mp3'
+                name_tts = gTTS(text = class_result[0], lang = 'ko')
+                name_tts.save("./static/" + snack_name)
+
+                snack_info = 'snack_info.mp3'
+                info_tts = gTTS(text = prob_result[0], lang = 'ko')
+                info_tts.save("./static/" + snack_info)
+
+
             except Exception as e: 
                 print(str(e))
                 error = 'This image from this site is not accesible or inappropriate input'
@@ -108,6 +124,7 @@ def success():
                         "prob2": prob_result[1],
                         "prob3": prob_result[2],
                 }
+
 
             else:
                 error = "Please upload images of jpg, jpeg, heic and png extension only"

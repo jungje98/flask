@@ -15,7 +15,7 @@ import playsound
 
 app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-model = load_model(os.path.join(BASE_DIR, '3rd_cnn_1.h5'))
+model = load_model(os.path.join(BASE_DIR, '3rd_densenet201_1.h5'))
 
 
 ALLOWED_EXT = set(['jpg', 'jpeg', 'png', 'heic'])

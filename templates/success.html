@@ -55,14 +55,16 @@
                             <th>설명</th>
                             <th>예측률</th>
                         </tr>
-                        {% for i in data_list %}
-                        <tr>
-                            <td>{{ i[0] }}</td>
-                            <td>{{ i[1] }}</td>
-                            <td>{{ i[2] }}</td>
-                            <td>{{ i[3] }}</td>
-                        </tr>
-                        {% endfor %}
+                            {% for i in data_list %}
+                            <tr>
+                                <td>{{ predictions.class1 }}</td>
+                                <td>{{ i[1] }}</td>
+                                <td>{{ i[2] }}</td>
+                                <td>{{ i[3] }}</td>
+                                <td>{{ i[4] }}</td>
+                                <td>{{ predictions.prob1  }}</td>
+                            </tr>
+                            {% endfor %}
                     </table>
                 </row>
             </div>

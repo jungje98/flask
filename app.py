@@ -26,7 +26,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXT
 
 
-classes = ['바나나킥', '포카칩', '화이트하임', '양파링', '오레오', '아몬드 빼빼로', '후렌치파이', '벌집핏자', '새우깡', '꼬북칩']
+classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
 
 def predict(filename, model):
@@ -118,7 +118,7 @@ def success():
                 error = 'This image from this site is not accesible or inappropriate input'
 
             if(len(error) == 0):
-                return  render_template('success.html', img = img , predictions = predictions)
+                return  render_template('success.html', img = img , predictions = predictions, data_list = data_list)
             else:
                 return render_template('home.html', error = error) 
 
@@ -146,7 +146,7 @@ def success():
                 error = "Please upload images of jpg, jpeg, heic and png extension only"
 
             if(len(error) == 0):
-                return  render_template('success.html', img  = img , predictions = predictions)
+                return  render_template('success.html', img  = img , predictions = predictions, data_list = data_list)
             else:
                 return render_template('home.html', error = error)
 

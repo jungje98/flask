@@ -33,7 +33,7 @@
             </nav>
             <div class = "header">
                 <row style = "width: 100% ; display: flex; justify-content: center;">
-                    <h3 class="header-text"><b>결과 확인</b><br></h3>
+                    <h3 class="header-text"><b>📸결과 확인📸</b><br></h3>
                 </row>
                 <row style = "width: 100% ; display: flex; justify-content: center;">
                     <img class = "result-img" src={{url_for('static', filename = 'images/'+ img)}}>
@@ -43,30 +43,26 @@
             <div class = "info">
             
                 <row style = "width: 100% ; display: flex; justify-content: center;">
-                    <h3 class = "header-text"><b>상품 예측</b></h3>
+                    <h3 class = "header-text"><b>✨상품 예측✨</b></h3>
                 </row>
                 <row style = "width: 100%; display: flex; justify-content: center;">
                     <table class="table-bordered text-light table-custom">
                         <tr>
-                            <th>순위</th>
                             <th>과자명</th>
+                            <th>가격</th>
+                            <th>양</th>
+                            <th>영양정보</th>
+                            <th>설명</th>
                             <th>예측률</th>
                         </tr>
+                        {% for i in data_list %}
                         <tr>
-                            <td>1st</td>
-                            <td>{{ predictions.class1 }}</td>
-                            <td>{{ predictions.prob1 }} %</td>
-                          </tr>
-                          <tr>
-                            <td>2nd</td>
-                            <td>{{ predictions.class2 }}</td>                                                         
-                            <td>{{ predictions.prob2 }} %</td>                                                      
-                        </tr>                                                                                                               
-                        <tr>
-                            <td>3rd</td>
-                            <td>{{ predictions.class3 }}</td>
-                            <td>{{ predictions.prob3 }} %</td>
-                          </tr>
+                            <td>{{ i[0] }}</td>
+                            <td>{{ i[1] }}</td>
+                            <td>{{ i[2] }}</td>
+                            <td>{{ i[3] }}</td>
+                        </tr>
+                        {% endfor %}
                     </table>
                 </row>
             </div>

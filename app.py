@@ -12,13 +12,15 @@ import os
 from gtts import gTTS
 import playsound
 
+import pymysql
+
 
 app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 model = load_model(os.path.join(BASE_DIR, '3rd_densenet201_1.h5'))
 
 
-ALLOWED_EXT = set(['jpg', 'jpeg', 'png', 'heic'])
+ALLOWED_EXT = set(['jpg', 'jpeg', 'png'])
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXT
@@ -95,6 +97,20 @@ def success():
                 snack_info = 'snack_info.mp3'
                 info_tts = gTTS(text = prob_result[0], lang = 'ko')
                 info_tts.save("./static/" + snack_info)
+
+
+                # sql 연동
+
+                db = pymysql.connect(host = 'localhost', user = 'root', db = 'snack', password = '0516', charset='utf8')
+                cur = db.cursor()
+
+                sql = "SELECT * from sn_info"
+                cur.execute(sql)
+
+                data_list = cur.fetchall()
+
+                return render_template('success.html', data_list = data_list)
+
 
 
             except Exception as e: 

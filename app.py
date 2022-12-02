@@ -82,11 +82,7 @@ def success():
 
                 predictions = {
                       "class1": class_result[0],
-                        "class2": class_result[1],
-                        "class3": class_result[2],
                         "prob1": prob_result[0],
-                        "prob2": prob_result[1],
-                        "prob3": prob_result[2],
                 }
 
                 # TTS
@@ -98,19 +94,7 @@ def success():
                 info_tts = gTTS(text = prob_result[0], lang = 'ko')
                 info_tts.save("./static/" + snack_info)
 
-
-                # sql 연동
-
-                db = pymysql.connect(host = 'localhost', user = 'root', db = 'snack', password = '0516', charset='utf8')
-                cur = db.cursor()
-
-                sql = "SELECT * from sn_info"
-                cur.execute(sql)
-
-                data_list = cur.fetchall()
-
-                return render_template('success.html', data_list = data_list)
-
+                return render_template('success.html')
 
 
             except Exception as e: 
@@ -134,11 +118,7 @@ def success():
 
                 predictions = {
                       "class1":class_result[0],
-                        "class2":class_result[1],
-                        "class3":class_result[2],
                         "prob1": prob_result[0],
-                        "prob2": prob_result[1],
-                        "prob3": prob_result[2],
                 }
 
 
@@ -146,7 +126,7 @@ def success():
                 error = "Please upload images of jpg, jpeg, heic and png extension only"
 
             if(len(error) == 0):
-                return  render_template('success.html', img  = img , predictions = predictions, data_list = data_list)
+                return  render_template('success.html', img  = img , predictions = predictions)
             else:
                 return render_template('home.html', error = error)
 

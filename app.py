@@ -13,11 +13,12 @@ from gtts import gTTS
 import playsound
 
 import pymysql
+from db_connection import data_list
 
 
 app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-model = load_model(os.path.join(BASE_DIR, '3rd_densenet201_1.h5'))
+model = load_model(os.path.join(BASE_DIR, '3rd_cnn_1.h5'))
 
 
 ALLOWED_EXT = set(['jpg', 'jpeg', 'png'])
@@ -26,7 +27,8 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXT
 
 
-classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
+classes = ['바나나킥', '포카칩 오리지널', '화이트하임', '양파링', '오레오', '아몬드 빼빼로', '후렌치파이 딸기', '벌집핏자', '새우깡', '꼬북칩 콘스프맛']
 
 
 def predict(filename, model):
@@ -55,7 +57,7 @@ def predict(filename, model):
 
     return class_result, prob_result
 
-
+    
 @app.route('/')
 def home():
     return render_template("home.html")
@@ -64,7 +66,7 @@ def home():
 @app.route('/success', methods = ['GET', 'POST'])
 def success():
     error = ''
-    target_img = os.path.join(os.getcwd() , 'static/images')
+    target_img = os.path.join(os.getcwd(), 'static/images')
     if request.method == 'POST':
         if(request.form):
             link = request.form.get('link')
@@ -86,12 +88,12 @@ def success():
                 }
 
                 # TTS
-                snack_name = 'snack_name.mp3'
-                name_tts = gTTS(text = class_result[0], lang = 'ko')
+                snack_name="snack_name.mp3"
+                name_tts = gTTS(text="이 상품은 "+{{ predictions.class1 }}+"입니다. 예측률은  "+{{ predictions.prob1 }}+" 입니다.", lang="ko")
                 name_tts.save("./static/" + snack_name)
 
-                snack_info = 'snack_info.mp3'
-                info_tts = gTTS(text = prob_result[0], lang = 'ko')
+                snack_info="snack_info.mp3"
+                info_tts = gTTS(text=info+"상품의 총량은 "+total_content+"그램이며, 칼로리는 "+calories+"칼로리입니다." ,lang="ko")
                 info_tts.save("./static/" + snack_info)
 
                 return render_template('success.html')
@@ -102,9 +104,10 @@ def success():
                 error = 'This image from this site is not accesible or inappropriate input'
 
             if(len(error) == 0):
-                return  render_template('success.html', img = img , predictions = predictions, data_list = data_list)
+                return  render_template('success.html', img=img, predictions=predictions, data_list=data_list)
+            
             else:
-                return render_template('home.html', error = error) 
+                return render_template('home.html', error=error) 
 
             
         elif (request.files):
@@ -121,14 +124,13 @@ def success():
                         "prob1": prob_result[0],
                 }
 
-
             else:
                 error = "Please upload images of jpg, jpeg, heic and png extension only"
 
             if(len(error) == 0):
-                return  render_template('success.html', img  = img , predictions = predictions)
+                return  render_template('success.html', img=img, predictions=predictions, data_list=data_list)
             else:
-                return render_template('home.html', error = error)
+                return render_template('home.html', error=error)
 
     else:
         return render_template('home.html')

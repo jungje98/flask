@@ -12,12 +12,12 @@
         <title>결과</title>
 
         <style type="text/css">
-            th{
+            th {
                 text-align: center;
                 font-size: 20px;
             }
 
-            td{
+            td {
                 text-align: center;
                 font-size: 18px;
             }
@@ -49,22 +49,12 @@
                     <table class="table-bordered text-light table-custom">
                         <tr>
                             <th>과자명</th>
-                            <th>가격</th>
-                            <th>양</th>
-                            <th>영양정보</th>
-                            <th>설명</th>
                             <th>예측률</th>
                         </tr>
-                            {% for i in data_list %}
                             <tr>
                                 <td>{{ predictions.class1 }}</td>
-                                <td>{{ i[1] }}</td>
-                                <td>{{ i[2] }}</td>
-                                <td>{{ i[3] }}</td>
-                                <td>{{ i[4] }}</td>
                                 <td>{{ predictions.prob1  }}</td>
                             </tr>
-                            {% endfor %}
                     </table>
                 </row>
             </div>
